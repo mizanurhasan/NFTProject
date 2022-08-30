@@ -8,6 +8,10 @@ module.exports = {
       },
       colors: {
         bgButton: "#ffffff",
+        txtColor: "#EFF6FF",
+      },
+      container: {
+        center: true,
       },
     },
   },
