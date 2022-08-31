@@ -5,7 +5,7 @@ router.get("/", walletCtrl.getWallet);
 // Testing
 router.post("/", walletCtrl.addcheckWeb3);
 //
-// router.post("/", walletCtrl.createWallet);
+router.post("/create", walletCtrl.createWallet);
 // router.put("/update", walletCtrl.updateToken);
 
 module.exports = router;

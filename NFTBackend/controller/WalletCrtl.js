@@ -1,7 +1,9 @@
 const Web3 = require("web3");
 const isTokenHolder = require("../Helper/isTokenHolder");
 const WalletModal = require("../models/WalletModal");
-const { readFileSync } = require("fs");
+
+const walletData = require("../Data/test.json");
+const isSaveWallet = require("../Helper/isSaveWallet");
 
 const WalletCrtl = {
   getWallet: async (req, res) => {
@@ -15,11 +17,8 @@ const WalletCrtl = {
   },
   createWallet: async (req, res) => {
     try {
-      const { name, address, collectionToken } = req.body;
-
-      // const user = await UserModel.findOne({ email });
-
-      const newWallet = new WalletModal({ name, address, collectionToken });
+      const { address, collectionToken } = req.body;
+      const newWallet = new WalletModal({ address, collectionToken });
       console.log(newWallet);
       newWallet.save();
 
@@ -46,22 +45,29 @@ const WalletCrtl = {
 
   addcheckWeb3: async (req, res) => {
     const w3 = new Web3(process.env.RPC_URL);
-    // console.log(req.body.address);
-    try {
-      let jsData = JSON.parse(readFileSync("./Helper/test.json"));
-      console.log(jsData);
-      const object = Object.keys(jsData);
-      const arr = [];
-      await isTokenHolder(w3, object[4], req.body.address);
-      // for (var i = 0; i < object.length; i++) {
-      //   var singleData = await isTokenHolder(w3, object[i], req.body.address);
-      //   if (singleData) {
-      //     arr.push(object[i]);
-      //   }
-      // }
 
-      // console.log(jsData[object[]]);
-      res.status(200).send(arr);
+    try {
+      const object = Object.keys(walletData);
+      // 0x6E84150012Fd6D571C33C266424fcDEcF80E3274 -true
+      const validWallet = [];
+
+      for (let i in object) {
+        await isTokenHolder(w3, object[i], req.body.address)
+          .then((valid) => {
+            if (valid) {
+              validWallet.push(...validWallet, walletData[object[i]]);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+
+      if (validWallet.length > 0) {
+        await isSaveWallet(req.body.address, validWallet);
+      }
+
+      res.status(200).send(validWallet);
     } catch (error) {
       res.status(400).json(error);
     }
