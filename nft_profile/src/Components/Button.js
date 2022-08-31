@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ name, onSubmit }) => {
+const Button = ({ name = "", onSubmit }) => {
   return (
     <button
       className="bg-bgButton 

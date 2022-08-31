@@ -1,40 +1,29 @@
 import { ethers } from "ethers";
-import React, { useState } from "react";
-import QRCode from "react-qr-code";
+import React from "react";
 
 import logo from "../Assets/logo.png";
 import Button from "../Components/Button";
-const Step1 = () => {
-  const [walletAddress, setWalletAddress] = useState(false);
+
+const Step1 = ({ setStep, setAddress, address }) => {
   async function manageLogin() {
-    console.log("Requesting account...");
-
     if (window.ethereum) {
-      console.log("dectected....");
-
       try {
         const account = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        // console.log(account[0]);
-        setWalletAddress(account[0]);
+        console.log(account[0]);
+        setAddress(account[0]);
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        console.log(provider.blockNumber());
+        console.log(provider);
+        setStep("Step2");
       } catch (error) {
         console.log(error);
       }
     } else {
-      alert("Meta Mask not dectected");
+      alert("MetaMask not dectected");
     }
   }
-  async function ConnectionWallet() {
-    console.log(window.ethereum);
-    // if (typeof window.ethereum !== "undefined") {
-    //   await manageLogin();
-    //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //   console.log(provider);
-    // }
-  }
+
   return (
     <div className="relative w-full h-screen container">
       <img src={logo} alt="" className="absolute pl-12 top-5" />
@@ -56,11 +45,9 @@ const Step1 = () => {
           </p>
         </div>
         <div>
-          <Button name={"Request Account"} onSubmit={manageLogin} />
-          <Button name={"Connection Wallet"} onSubmit={ConnectionWallet} />
+          <Button name={"Connection Wallet"} onSubmit={manageLogin} />
         </div>
       </div>
-      <QRCode value={walletAddress || ""} />
     </div>
   );
 };
