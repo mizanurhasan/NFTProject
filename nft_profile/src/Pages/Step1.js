@@ -1,31 +1,10 @@
-// import { ethers } from "ethers";
 import React from "react";
-
-import logo from "../Assets/logo.png";
 import Button from "../Components/Button";
+import onActionWallet from "../Controller/onActionWallet";
 
 const Step1 = ({ setStep, setAddress, address }) => {
-  async function manageLogin() {
-    if (window.ethereum) {
-      try {
-        const account = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        console.log(account[0]);
-        setAddress(account[0]);
-        setStep("Step2");
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      alert("MetaMask not dectected");
-    }
-  }
-
   return (
     <div className="relative w-full h-screen container">
-      <img src={logo} alt="" className="absolute pl-12 top-5" />
-
       <div
         className="absolute flex flex-col md:flex-row w-full 
       md:space-x-32 space-y-10 md:space-y-5
@@ -43,7 +22,12 @@ const Step1 = ({ setStep, setAddress, address }) => {
           </p>
         </div>
         <div>
-          <Button name={"Connection Wallet"} onSubmit={manageLogin} />
+          <Button
+            name={"Connection Wallet"}
+            onSubmit={async () =>
+              await onActionWallet().onConnectWallet({ setStep, setAddress })
+            }
+          />
         </div>
       </div>
     </div>

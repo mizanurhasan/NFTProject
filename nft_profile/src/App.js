@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import bgVideo from "./Assets/file.mp4";
 import Step1 from "./Pages/Step1";
 import Step2 from "./Pages/Step2";
+import logo from "./Assets/logo.png";
 
 const page = {
   Step1: (setStep, setAddress, address) => (
@@ -18,7 +18,10 @@ function App() {
   const [address, setAddress] = useState(false);
 
   return (
-    <div className="">
+    <div>
+      <div className="container">
+        <img src={logo} alt="" className="absolute pl-12 top-5 z-10" />
+      </div>
       <video
         src={bgVideo}
         loop
