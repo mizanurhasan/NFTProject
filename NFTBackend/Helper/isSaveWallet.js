@@ -21,5 +21,17 @@ async function isSaveWallet(address, collectionToken) {
     throw new Error(e?.message);
   }
 }
+async function getToken(address) {
+  try {
+    const token = await WalletModal.findOne({ address });
+    if (token) {
+      return token;
+    }
 
-module.exports = isSaveWallet;
+    return [];
+  } catch (e) {
+    throw new Error(e?.message);
+  }
+}
+
+module.exports = { isSaveWallet, getToken };

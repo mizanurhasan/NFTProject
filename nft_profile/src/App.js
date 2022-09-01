@@ -17,13 +17,6 @@ function App() {
   const [step, setStep] = useState("Step1");
   const [address, setAddress] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const res = await axios.get("/wallet");
-      console.log(res.data);
-    })();
-  }, []);
-
   return (
     <div className="">
       <video
@@ -33,6 +26,7 @@ function App() {
         muted
         className="absolute w-full h-full object-cover"
       />
+
       {page[step](setStep, setAddress, address)}
     </div>
   );
