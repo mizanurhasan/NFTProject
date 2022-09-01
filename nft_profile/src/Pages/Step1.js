@@ -5,11 +5,7 @@ import onActionWallet from "../Controller/onActionWallet";
 const Step1 = ({ setStep, setAddress, address }) => {
   return (
     <div className="relative w-full h-screen container">
-      <div
-        className="absolute flex flex-col md:flex-row w-full 
-      md:space-x-32 space-y-10 md:space-y-5
-      items-center justify-center top-[25%] px-20"
-      >
+      <div className="divTextContainer">
         <div className="text-txtColor items-end">
           <h1 className="text-[38px] xl:text-[48px]  font-[700]">Step 1</h1>
           <h2 className="font-[700] text-[18px]  xl:text-[24px] mb-5 ">

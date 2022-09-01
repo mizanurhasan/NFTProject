@@ -11,4 +11,9 @@ border-none font-bold text-[18px] leading-3
 rounded-[5px] hover:bg-green-600
 transition-all duration-500;
   }
+  .divTextContainer {
+    @apply absolute flex flex-col md:flex-row w-full 
+    md:space-x-32 
+    md:items-center justify-between top-[25%] px-20;
+  }
 }

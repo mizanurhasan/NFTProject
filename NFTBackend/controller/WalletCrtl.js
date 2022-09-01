@@ -7,10 +7,13 @@ const { isSaveWallet, getToken } = require("../Helper/isSaveWallet");
 
 const WalletCrtl = {
   getWallet: async (req, res) => {
+    const address = req.params.address;
     try {
-      const walletModal = await WalletModal.find();
+      const tokens = await getToken(address);
 
-      return res.status(200).json(walletModal);
+      return res
+        .status(200)
+        .json({ tokenName: tokens.collectionToken, address: tokens.address });
     } catch (error) {
       return res.status(400).json({ msg: error.message });
     }

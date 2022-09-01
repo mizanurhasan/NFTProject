@@ -19,11 +19,7 @@ const Step2 = ({ setStep, setAddress, address }) => {
 
   return (
     <div className="relative w-full h-screen container">
-      <div
-        className="absolute flex flex-col md:flex-row w-full 
-            md:space-x-32 
-            items-center justify-between top-[25%] px-20"
-      >
+      <div className="divTextContainer">
         <div
           className="text-txtColor 
         flex items-start flex-col pb-5 "
@@ -34,10 +30,8 @@ const Step2 = ({ setStep, setAddress, address }) => {
           </h2>
           <p
             className={`${
-              loading
-                ? "text-red-500 shadow-2xl font-[700]"
-                : "text-green-700 shadow-2xl font-[700]"
-            } pb-10`}
+              loading ? "text-red-500  " : "text-green-900 "
+            } mb-10 shadow-sm font-[700] shadow-gray-500`}
           >
             {loading ? (
               "Waiting ..."
@@ -47,10 +41,13 @@ const Step2 = ({ setStep, setAddress, address }) => {
               </span>
             )}
           </p>
-          <Button name={"Step 1"} onSubmit={() => setStep("Step1")} />
+          {/* <Button name={"Step 1"} onSubmit={() => setStep("Step1")} /> */}
         </div>
         <div>
-          <QRCode value={address || ""} />
+          <QRCode
+            value={address || ""}
+            className="w-[200px] h-[200px] xl:w-auto xl:h-auto ' "
+          />
         </div>
       </div>
     </div>
